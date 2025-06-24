@@ -10,7 +10,7 @@ function Header({ handleAddGarment, weatherData }) {
 
   return (
     <header className="header">
-      <img src={logo} alt="wtwr" className="header__logo"></img>
+      <img src={logo} alt="wtwr-logo" className="header__logo"></img>
       <p className="header__date">
         {currentDate}, {weatherData.city}
       </p>
