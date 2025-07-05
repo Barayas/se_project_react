@@ -1,0 +1,58 @@
+.toggle-switch {
+  margin: 0 0 0 auto;
+  width: 56px;
+  height: 28px;
+  border: 2px solid;
+  border-color: rgba(126, 126, 126);
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.toggle-switch__checkbox {
+  opacity: 0;
+}
+
+.toggle-switch__checkbox:checked + .toggle-switch__slider {
+  transform: translateX(28px);
+}
+
+.toggle-switch__checkbox:checked ~ .toggle-switch__text.toggle-switch__text_F {
+  color: rgba(126, 126, 126);
+}
+
+.toggle-switch__checkbox:checked ~ .toggle-switch__text.toggle-switch__text_C {
+  color: white;
+}
+
+.toggle-switch__slider {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: black;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+.toggle-switch__text {
+  position: absolute;
+  color: rgba(126, 126, 126);
+  width: 28px;
+  height: 28px;
+  font-family: "Cabinet Grotesk Bold", sans-serif;
+  top: 5px;
+  transition: color 0.3s ease;
+}
+
+.toggle-switch__text_F {
+  left: -9px;
+  text-align: right;
+  color: white;
+}
+
+.toggle-switch__text_C {
+  right: -9px;
+  text-align: left;
+}
