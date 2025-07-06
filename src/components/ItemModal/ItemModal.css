@@ -9,9 +9,25 @@
   overflow: hidden;
 }
 
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .modal__caption {
   margin-left: 32px;
   font-size: 20px;
+}
+
+.modal_delete-button {
+  cursor: pointer;
+  font-family: "Cabinet Grotesk Bold", sans-serif;
+  color: rgba(255, 77, 0, 1);
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  margin-right: 26px;
 }
 
 .modal__weather {

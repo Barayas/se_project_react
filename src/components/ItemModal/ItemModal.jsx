@@ -12,7 +12,7 @@ function ItemModal({ activeModal, closeActiveModal, card, onDelete }) {
           <img src="../../src/assets/close.svg" alt="close-icon" />
         </button>
         <img src={card.link} alt={card.name} className="modal__image" />
-        <div className="modal__footer">
+        <div className="modal__header">
           <h2 className="modal__caption">{card.name}</h2>
           <button
             className="modal_delete-button"
@@ -21,8 +21,8 @@ function ItemModal({ activeModal, closeActiveModal, card, onDelete }) {
           >
             Delete item
           </button>
-          <p className="modal__weather">Weather: {card.weather}</p>
         </div>
+        <p className="modal__weather">Weather: {card.weather}</p>
       </div>
     </div>
   );
