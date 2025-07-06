@@ -1,0 +1,23 @@
+.sidebar {
+  display: flex;
+  max-width: 229px;
+  font-family: "Grotesk", sans-serif;
+  height: 56px;
+  align-items: center;
+  margin-right: 100px;
+
+  gap: 16px;
+  white-space: nowrap;
+}
+
+.sidebar__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.sidebar__username {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}

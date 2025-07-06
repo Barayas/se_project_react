@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
@@ -7,10 +8,12 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
+import Profile from "../Profile/Profile";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
+import { getItems } from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -20,10 +23,11 @@ function App() {
     condition: "",
     isDay: false,
   });
-  const [clothingItems, setclothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState();
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  // const [itemToDelete, setItemToDelete] = useState(null);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -38,14 +42,29 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    setclothingItems([{ name, link: imageUrl, weather }, ...clothingItems]);
+    setClothingItems([{ name, link: imageUrl, weather }, ...clothingItems]);
     closeActiveModal();
   };
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+    // setItemToDelete(card);
   };
+
+  // const handleCardDelete = () => {
+  //   console.log("itemToDelete:", itemToDelete);
+  //   deleteItem(itemToDelete._id)
+  //     .then(() => {
+  //       const updatedItems = clothingItems.filter(
+  //         (item) => item._id !== itemToDelete._id
+  //       );
+  //       setClothingItems(updatedItems);
+  //       setItemToDelete(null);
+  //       closeActiveModal();
+  //     })
+  //     .catch((err) => console.error("Error deleting item:", err));
+  // };
 
   useEffect(() => {
     if (coordinates) {
@@ -69,6 +88,15 @@ function App() {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [coordinates, APIkey]);
+
+  useEffect(() => {
+    getItems()
+      .then((data) =>
+        setClothingItems(data.map((item) => ({ ...item, link: item.imageUrl })))
+      )
+      .catch((err) => console.error("Error fetching clothing items:", err));
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -79,11 +107,30 @@ function App() {
             handleAddGarment={handleAddGarment}
             weatherData={weatherData}
           />
-          <Main
-            weatherData={weatherData}
-            handleCardClick={handleCardClick}
-            clothingItems={clothingItems}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  weatherType={weatherData.type}
+                  clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
+                  onAddClick={handleAddGarment}
+                />
+              }
+            />
+          </Routes>
+
           <Footer />
         </div>
 
@@ -97,6 +144,7 @@ function App() {
           activeModal={activeModal}
           closeActiveModal={closeActiveModal}
           card={selectedCard}
+          // onDelete={handleCardDelete}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

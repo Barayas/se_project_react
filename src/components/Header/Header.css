@@ -31,6 +31,11 @@
   gap: 12px;
 }
 
+.header__link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 1);
+}
+
 .header__username {
   margin: 0;
   font-family: "Cabinet Grotesk Bold", sans-serif;
