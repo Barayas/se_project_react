@@ -1,5 +1,3 @@
-import "./ModalWithForm.css";
-
 function ModalWithForm({
   children,
   buttonText,
@@ -7,6 +5,8 @@ function ModalWithForm({
   activeModal,
   isOpen,
   closeActiveModal,
+  onSubmit,
+  isValid,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -19,9 +19,9 @@ function ModalWithForm({
         >
           <img src="../../src/assets/close2.svg" alt="close" />
         </button>
-        <form className="modal__form">
+        <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <button type="submit" className="modal__submit">
+          <button type="submit" className="modal__submit" disabled={!isValid}>
             {buttonText}
           </button>
         </form>

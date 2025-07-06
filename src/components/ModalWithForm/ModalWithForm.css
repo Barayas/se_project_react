@@ -86,6 +86,16 @@
   line-height: 20px;
   border-radius: 5px;
   border: none;
-  background-color: #0000004d;
+  background-color: rgba(0, 0, 0, 1);
   color: #fff;
+}
+
+.modal__submit:disabled {
+  background-color: #0000004d;
+}
+
+.modal__submit:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.3s ease;
 }
