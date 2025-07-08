@@ -29,7 +29,7 @@ function addItem({ name, imageUrl, weather }) {
 
       name,
       weather,
-      link: imageUrl,
+      imageUrl,
     }),
   });
 }

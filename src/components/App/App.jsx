@@ -44,7 +44,10 @@ function App() {
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     addItem({ name, imageUrl, weather })
       .then((newItem) => {
-        setClothingItems([newItem, ...clothingItems]);
+        setClothingItems([
+          { ...newItem, link: newItem.imageUrl },
+          ...clothingItems,
+        ]);
         closeActiveModal();
       })
       .catch((err) => console.error("Error adding item:", err));
