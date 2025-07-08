@@ -57,7 +57,6 @@ function App() {
   };
 
   const handleCardDelete = () => {
-    console.log("itemToDelete:", itemToDelete);
     deleteItem(itemToDelete._id)
       .then(() => {
         const updatedItems = clothingItems.filter(

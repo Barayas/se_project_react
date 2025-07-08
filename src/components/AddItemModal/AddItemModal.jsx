@@ -2,6 +2,7 @@ import "./AddItemModal.css";
 import "../ModalWithForm/ModalWithForm.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function AddItemModal({
   isOpen,
@@ -11,6 +12,12 @@ export default function AddItemModal({
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
+
+  useEffect(() => {
+    setName("");
+    setImageUrl("");
+    setWeather("");
+  }, [isOpen]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -27,9 +34,6 @@ export default function AddItemModal({
   const handleSubmit = (event) => {
     event.preventDefault();
     onAddItemModalSubmit({ name, imageUrl, weather });
-    setName("");
-    setImageUrl("");
-    setWeather("");
   };
 
   return (
