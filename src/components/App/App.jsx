@@ -18,7 +18,13 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
 import { getItems, addItem, deleteItem } from "../../utils/api";
 
-import { register, login, checkToken } from "../../utils/auth";
+import {
+  register,
+  login,
+  checkToken,
+  updateUserProfile,
+} from "../../utils/auth";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -99,6 +105,15 @@ function App() {
         closeActiveModal();
       })
       .catch((err) => console.error("Login error:", err));
+  };
+
+  const handleProfileEditSubmit = ({ name, avatar }) => {
+    updateUserProfile({ name, avatar })
+      .then((user) => {
+        setCurrentUser(user);
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Error updating profile:", err));
   };
 
   const handleCardDelete = () => {
@@ -192,6 +207,7 @@ function App() {
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
                     onAddClick={handleAddGarment}
+                    onEditProfile={() => setActiveModal("edit-profile")}
                   />
                 }
               />
@@ -223,6 +239,12 @@ function App() {
             isOpen={activeModal === "login"}
             onClose={closeActiveModal}
             onLogin={handleLogin}
+          />
+
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            onClose={closeActiveModal}
+            onUpdateUser={handleProfileEditSubmit}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>
