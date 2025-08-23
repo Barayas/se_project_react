@@ -27,3 +27,14 @@
 .card__img {
   width: 100%;
 }
+
+.card__like-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}

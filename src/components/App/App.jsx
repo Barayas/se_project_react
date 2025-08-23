@@ -16,7 +16,13 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 
 import {
   register,
@@ -129,6 +135,29 @@ function App() {
       .catch((err) => console.error("Error deleting item:", err));
   };
 
+  const handleCardLike = ({ _id, likes }) => {
+    const isLiked = likes.some((id) => id === currentUser?._id);
+    const token = localStorage.getItem("jwt");
+
+    const likeRequest = !isLiked
+      ? addCardLike(_id, token)
+      : removeCardLike(_id, token);
+
+    likeRequest
+      .then((response) => {
+        const updatedCard = response.data;
+        const mappedUpdatedCard = {
+          ...updatedCard,
+          _id: updatedCard._id || updatedCard.id || `fallback-${_id}`,
+          link: updatedCard.imageUrl || updatedCard.link,
+        };
+        setClothingItems((items) =>
+          items.map((item) => (item._id === _id ? mappedUpdatedCard : item))
+        );
+      })
+      .catch((err) => console.log("Like toggle failed:", err));
+  };
+
   useEffect(() => {
     if (coordinates) {
       getWeather(coordinates, APIkey)
@@ -196,6 +225,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
