@@ -11,7 +11,7 @@ function Header({
   weatherData,
   onRegisterClick,
   onLoginClick,
-  onLogout,
+  onSignOut,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString("default", {
@@ -56,7 +56,7 @@ function Header({
               )}
             </div>
           </Link>
-          <button className="header__button" onClick={onLogout}>
+          <button className="header__button" onClick={onSignOut}>
             Log Out
           </button>
         </>

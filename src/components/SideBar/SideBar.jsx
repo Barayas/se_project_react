@@ -2,7 +2,7 @@ import "./SideBar.css";
 import avatar from "../../assets/avatar.png";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-function SideBar({ onEditProfile }) {
+function SideBar({ onEditProfile, onSignOut }) {
   const currentUser = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
@@ -15,11 +15,18 @@ function SideBar({ onEditProfile }) {
       <button
         className="sidebar__edit-button"
         onClick={() => {
-          console.log("Button clicked!");
           onEditProfile();
         }}
       >
         Edit Profile
+      </button>
+      <button
+        className="sidebar__signout-button"
+        onClick={() => {
+          onSignOut();
+        }}
+      >
+        Sign Out
       </button>
     </div>
   );

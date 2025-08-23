@@ -158,6 +158,13 @@ function App() {
       .catch((err) => console.log("Like toggle failed:", err));
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    navigate("/");
+  };
+
   useEffect(() => {
     if (coordinates) {
       getWeather(coordinates, APIkey)
@@ -216,6 +223,7 @@ function App() {
               weatherData={weatherData}
               onRegisterClick={() => setActiveModal("register")}
               onLoginClick={() => setActiveModal("login")}
+              onSignOut={handleSignOut}
             />
             <Routes>
               <Route
@@ -238,6 +246,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     onAddClick={handleAddGarment}
                     onEditProfile={() => setActiveModal("edit-profile")}
+                    onSignOut={handleSignOut}
                   />
                 }
               />
