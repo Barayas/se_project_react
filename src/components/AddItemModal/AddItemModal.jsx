@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function AddItemModal({
   isOpen,
-  closeActiveModal,
+  onClose,
   onAddItemModalSubmit,
 }) {
   const [name, setName] = useState("");
@@ -41,7 +41,7 @@ export default function AddItemModal({
       title="New garment"
       buttonText="Add garment"
       isOpen={isOpen}
-      closeActiveModal={closeActiveModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
       isValid={name && imageUrl && weather}
     >

@@ -18,18 +18,19 @@ function getItems() {
   );
 }
 
-function addItem({ name, imageUrl, weather }) {
+function addItem({ name, imageUrl, weather, owner }) {
+  const token = localStorage.getItem("jwt");
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      //_id: Date.now(),
-
       name,
       weather,
       imageUrl,
+      owner,
     }),
   });
 }
