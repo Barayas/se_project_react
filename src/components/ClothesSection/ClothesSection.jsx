@@ -8,6 +8,7 @@ function ClothesSection({
   clothingItems,
   handleCardClick,
   onAddClick,
+  onCardLike,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -26,7 +27,12 @@ function ClothesSection({
 
       <ul className="clothes-section__items">
         {userItems.map((item) => (
-          <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
+          <ItemCard
+            key={item._id}
+            item={item}
+            onCardClick={handleCardClick}
+            onCardLike={onCardLike}
+          />
         ))}
       </ul>
     </div>

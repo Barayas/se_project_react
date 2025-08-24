@@ -35,10 +35,13 @@ function addItem({ name, imageUrl, weather, owner }) {
   });
 }
 
-function deleteItem(id) {
-  return request(`${baseUrl}/items/${id}`, {
+function deleteItem(id, token) {
+  return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
-  });
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
 }
 
 function addCardLike(id, token) {

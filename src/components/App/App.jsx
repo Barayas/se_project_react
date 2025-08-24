@@ -62,14 +62,12 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     addItem({ name, imageUrl, weather, owner: currentUser._id })
-      .then((newItem) => {
-        setClothingItems([
-          { ...newItem, link: newItem.imageUrl },
-          ...clothingItems,
-        ]);
-        closeActiveModal();
-      })
-      .catch((err) => console.error("Error adding item:", err));
+      .then(() => getItems())
+      .then((data) =>
+        setClothingItems(data.map((item) => ({ ...item, link: item.imageUrl })))
+      )
+      .catch((err) => console.error("Error adding item:", err))
+      .finally(() => closeActiveModal());
   };
 
   const handleCardClick = (card) => {
@@ -123,7 +121,9 @@ function App() {
   };
 
   const handleCardDelete = () => {
-    deleteItem(itemToDelete._id)
+    const token = localStorage.getItem("jwt");
+
+    deleteItem(itemToDelete._id, token)
       .then(() => {
         const updatedItems = clothingItems.filter(
           (item) => item._id !== itemToDelete._id
@@ -245,6 +245,7 @@ function App() {
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
                     onAddClick={handleAddGarment}
+                    onCardLike={handleCardLike}
                     onEditProfile={() => setActiveModal("edit-profile")}
                     onSignOut={handleSignOut}
                   />

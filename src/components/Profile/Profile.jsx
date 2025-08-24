@@ -7,6 +7,7 @@ function Profile({
   weatherType,
   handleCardClick,
   onAddClick,
+  onCardLike,
   onEditProfile,
   onSignOut,
 }) {
@@ -21,6 +22,7 @@ function Profile({
           weatherType={weatherType}
           handleCardClick={handleCardClick}
           onAddClick={onAddClick}
+          onCardLike={onCardLike}
         />
       </section>
     </div>
