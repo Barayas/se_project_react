@@ -11,6 +11,8 @@ import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import RequireAuth from "../ProtectedRoute/ProtectedRoute";
+
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -48,6 +50,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
@@ -145,6 +148,8 @@ function App() {
 
     likeRequest
       .then((response) => {
+        console.log("Full response:", response);
+        console.log("response.data:", response.data);
         const updatedCard = response.data;
         const mappedUpdatedCard = {
           ...updatedCard,
@@ -229,20 +234,20 @@ function App() {
               <Route
                 path="/"
                 element={
-                  currentUser && (
+                  <RequireAuth isLoggedIn={!!currentUser}>
                     <Main
                       weatherData={weatherData}
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       onCardLike={handleCardLike}
                     />
-                  )
+                  </RequireAuth>
                 }
               />
               <Route
                 path="/profile"
                 element={
-                  currentUser && (
+                  <RequireAuth isLoggedIn={!!currentUser}>
                     <Profile
                       weatherType={weatherData.type}
                       clothingItems={clothingItems}
@@ -252,7 +257,7 @@ function App() {
                       onEditProfile={() => setActiveModal("edit-profile")}
                       onSignOut={handleSignOut}
                     />
-                  )
+                  </RequireAuth>
                 }
               />
             </Routes>
