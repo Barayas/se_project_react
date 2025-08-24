@@ -69,11 +69,12 @@
 }
 
 .modal__label {
-  margin: 0, 0, 8px;
+  margin: 0 0 8px;
 }
 
-.modal__label_type_radio:checked {
-  accent-color: rgba(0, 0, 0, 1);
+.modal__radio-input {
+  position: relative;
+  top: 18px;
 }
 
 .modal__submit {

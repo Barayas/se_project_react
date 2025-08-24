@@ -16,7 +16,7 @@ function LoginModal({ isOpen, onClose, onLogin }) {
       title="Log In"
       buttonText="Log In"
       isOpen={isOpen}
-      handleCloseClick={onClose}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <label className="modal__label">
