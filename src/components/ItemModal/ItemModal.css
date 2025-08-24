@@ -20,7 +20,7 @@
   font-size: 20px;
 }
 
-.modal_delete-button {
+.modal__delete-button {
   cursor: pointer;
   font-family: "Cabinet Grotesk Bold", sans-serif;
   color: rgba(255, 77, 0, 1);

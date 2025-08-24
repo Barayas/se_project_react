@@ -229,31 +229,33 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <Main
-                    weatherData={weatherData}
-                    handleCardClick={handleCardClick}
-                    clothingItems={clothingItems}
-                    onCardLike={handleCardLike}
-                  />
+                  currentUser && (
+                    <Main
+                      weatherData={weatherData}
+                      handleCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      onCardLike={handleCardLike}
+                    />
+                  )
                 }
               />
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    weatherType={weatherData.type}
-                    clothingItems={clothingItems}
-                    handleCardClick={handleCardClick}
-                    onAddClick={handleAddGarment}
-                    onCardLike={handleCardLike}
-                    onEditProfile={() => setActiveModal("edit-profile")}
-                    onSignOut={handleSignOut}
-                  />
+                  currentUser && (
+                    <Profile
+                      weatherType={weatherData.type}
+                      clothingItems={clothingItems}
+                      handleCardClick={handleCardClick}
+                      onAddClick={handleAddGarment}
+                      onCardLike={handleCardLike}
+                      onEditProfile={() => setActiveModal("edit-profile")}
+                      onSignOut={handleSignOut}
+                    />
+                  )
                 }
               />
             </Routes>
-
-            <Footer />
           </div>
 
           <AddItemModal
@@ -286,6 +288,7 @@ function App() {
             onClose={closeActiveModal}
             onUpdateUser={handleProfileEditSubmit}
           />
+          <Footer />
         </div>
       </CurrentTemperatureUnitContext.Provider>
     </CurrentUserContext.Provider>

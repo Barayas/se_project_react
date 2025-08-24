@@ -18,7 +18,7 @@ function SideBar({ onEditProfile, onSignOut }) {
           onEditProfile();
         }}
       >
-        Edit Profile
+        Change profile data
       </button>
       <button
         className="sidebar__signout-button"
@@ -26,7 +26,7 @@ function SideBar({ onEditProfile, onSignOut }) {
           onSignOut();
         }}
       >
-        Sign Out
+        Log out
       </button>
     </div>
   );

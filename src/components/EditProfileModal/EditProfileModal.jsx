@@ -25,7 +25,7 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
   return (
     <ModalWithForm
       title="Edit Profile"
-      buttonText="Save"
+      buttonText="Save changes"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
