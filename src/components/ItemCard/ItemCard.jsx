@@ -27,20 +27,18 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         className="card__img"
         onClick={() => onCardClick(item)}
       />
-      {/* Show like button only if user is logged in */}
-      {currentUser && (
-        <button
-          className={itemLikeButtonClassName}
-          onClick={handleLike}
-          type="button"
-        >
-          <img
-            src={isLiked ? likedIcon : likeIcon}
-            alt="like-icon"
-            className="card__like-icon"
-          />
-        </button>
-      )}
+      <button
+        className={itemLikeButtonClassName}
+        onClick={handleLike}
+        type="button"
+        disabled={!currentUser}
+      >
+        <img
+          src={isLiked ? likedIcon : likeIcon}
+          alt="like-icon"
+          className="card__like-icon"
+        />
+      </button>
     </li>
   );
 }

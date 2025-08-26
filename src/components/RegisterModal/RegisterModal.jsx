@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 
-function RegisterModal({ isOpen, onClose, onRegister }) {
+function RegisterModal({ isOpen, onClose, onRegister, onOpenLoginModal }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
@@ -11,6 +11,11 @@ function RegisterModal({ isOpen, onClose, onRegister }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister({ name, avatar, email, password });
+  };
+
+  const handleOpenLoginModal = () => {
+    onClose();
+    onOpenLoginModal();
   };
 
   return (
@@ -68,6 +73,14 @@ function RegisterModal({ isOpen, onClose, onRegister }) {
           required
         />
       </label>
+
+      <button
+        type="button"
+        className="modal__link"
+        onClick={handleOpenLoginModal}
+      >
+        or Log In
+      </button>
     </ModalWithForm>
   );
 }

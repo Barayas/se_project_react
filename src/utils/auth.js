@@ -1,4 +1,5 @@
 export const BASE_URL = "http://localhost:3001";
+import { checkResponse } from "./api";
 
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -7,7 +8,7 @@ export const register = ({ name, avatar, email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then(handleResponse);
+  }).then(checkResponse);
 };
 
 export const login = ({ email, password }) => {
@@ -17,7 +18,7 @@ export const login = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then(handleResponse);
+  }).then(checkResponse);
 };
 
 export const checkToken = (token) => {
@@ -27,7 +28,7 @@ export const checkToken = (token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then(handleResponse);
+  }).then(checkResponse);
 };
 
 export const updateUserProfile = ({ name, avatar }) => {
@@ -39,9 +40,5 @@ export const updateUserProfile = ({ name, avatar }) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, avatar }),
-  }).then(handleResponse);
+  }).then(checkResponse);
 };
-
-function handleResponse(res) {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-}

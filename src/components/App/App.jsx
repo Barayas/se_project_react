@@ -69,8 +69,8 @@ function App() {
       .then((data) =>
         setClothingItems(data.map((item) => ({ ...item, link: item.imageUrl })))
       )
-      .catch((err) => console.error("Error adding item:", err))
-      .finally(() => closeActiveModal());
+      .then(() => closeActiveModal())
+      .catch((err) => console.error("Error adding item:", err));
   };
 
   const handleCardClick = (card) => {
@@ -114,6 +114,14 @@ function App() {
       .catch((err) => console.error("Login error:", err));
   };
 
+  const handleOpenLoginModal = () => {
+    setActiveModal("login");
+  };
+
+  const handleOpenRegisterModal = () => {
+    setActiveModal("register");
+  };
+
   const handleProfileEditSubmit = ({ name, avatar }) => {
     updateUserProfile({ name, avatar })
       .then((user) => {
@@ -139,6 +147,9 @@ function App() {
   };
 
   const handleCardLike = ({ _id, likes }) => {
+    if (!currentUser) {
+      return;
+    }
     const isLiked = likes.some((id) => id === currentUser?._id);
     const token = localStorage.getItem("jwt");
 
@@ -148,8 +159,6 @@ function App() {
 
     likeRequest
       .then((response) => {
-        console.log("Full response:", response);
-        console.log("response.data:", response.data);
         const updatedCard = response.data;
         const mappedUpdatedCard = {
           ...updatedCard,
@@ -234,14 +243,12 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <RequireAuth isLoggedIn={!!currentUser}>
-                    <Main
-                      weatherData={weatherData}
-                      handleCardClick={handleCardClick}
-                      clothingItems={clothingItems}
-                      onCardLike={handleCardLike}
-                    />
-                  </RequireAuth>
+                  <Main
+                    weatherData={weatherData}
+                    handleCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
+                  />
                 }
               />
               <Route
@@ -280,12 +287,14 @@ function App() {
             isOpen={activeModal === "register"}
             onClose={closeActiveModal}
             onRegister={handleRegister}
+            onOpenLoginModal={handleOpenLoginModal}
           />
 
           <LoginModal
             isOpen={activeModal === "login"}
             onClose={closeActiveModal}
             onLogin={handleLogin}
+            onOpenRegisterModal={handleOpenRegisterModal}
           />
 
           <EditProfileModal
