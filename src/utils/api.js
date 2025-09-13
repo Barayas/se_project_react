@@ -1,7 +1,15 @@
-const baseUrl = "http://localhost:3001";
+import { baseUrl } from "../utils/constants";
 
 export function checkResponse(res) {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  if (res.ok) {
+    if (res.status === 204) {
+      return Promise.resolve({});
+    } else {
+      return res.json();
+    }
+  } else {
+    return Promise.reject(`Error: ${res.status}`);
+  }
 }
 
 function request(url, options) {

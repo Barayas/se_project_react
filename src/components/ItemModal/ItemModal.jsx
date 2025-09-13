@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./ItemModal.css";
+import closeIcon from "../../assets/close.svg";
 
 function ItemModal({ isOpen, onClose, selectedCard, onDelete }) {
   const currentUser = useContext(CurrentUserContext);
@@ -17,7 +18,7 @@ function ItemModal({ isOpen, onClose, selectedCard, onDelete }) {
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_image">
         <button type="button" onClick={onClose} className="modal__close">
-          <img src="../../src/assets/close.svg" alt="close-icon" />
+          <img src={closeIcon} alt="close-icon" />
         </button>
         <img
           src={selectedCard.link}

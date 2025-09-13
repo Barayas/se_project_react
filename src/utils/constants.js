@@ -100,6 +100,11 @@ export const defaultClothingItems = [
   },
 ];
 
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr15.twilightparadox.com"
+    : "http://localhost:3001";
+
 export const coordinates = {
   latitude: 33.162621,
   longitude: -96.937508,

@@ -1,3 +1,5 @@
+import closeIcon2 from "../../assets/close2.svg";
+
 function ModalWithForm({
   children,
   buttonText,
@@ -12,7 +14,7 @@ function ModalWithForm({
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button type="button" onClick={onClose} className="modal__close">
-          <img src="../../src/assets/close2.svg" alt="close" />
+          <img src={closeIcon2} alt="close" />
         </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
